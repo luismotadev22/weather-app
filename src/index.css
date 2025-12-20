@@ -1,0 +1,22 @@
+:root {
+  /* Paleta "Céu de Verão" */
+  --sky-gradient: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+  --primary-blue: #0284c7;    /* Azul oceano para ações */
+  --text-main: #0c4a6e;      /* Azul muito escuro para contraste máximo */
+  --text-soft: #334155;
+  --white-glass: rgba(255, 255, 255, 0.7); /* Efeito de vidro para cartões */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--sky-gradient);
+  background-attachment: fixed; /* O gradiente não quebra ao fazer scroll */
+  color: var(--text-main);
+  min-height: 100vh;
+}

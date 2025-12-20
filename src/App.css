@@ -1,0 +1,194 @@
+:root {
+  --primary-blue: #0284c7;
+  --text-main: #1e293b;
+  --text-soft: #64748b;
+  --bg-light: #f8fafc;
+}
+
+/* 2. HEADER / NAVBAR (Mais fina e elegante) */
+.main-header {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 18px 60px;
+  position: sticky;
+  font-weight: 800 !important;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-logo {
+  font-size: 2.2rem;
+}
+
+.brand-text {
+  font-size: 1.6rem;
+  font-weight: 8555;
+  color: var(--text-main);
+  letter-spacing: -1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-soft);
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-link.active {
+  color: var(--primary-blue);
+  border-bottom: 2px solid var(--primary-blue);
+}
+
+/* 3. CORPO DA PÁGINA (Ajuste de Espaçamentos) */
+.content-area {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  
+  /* AUMENTO DE LARGURA: Ocupa 95% do ecrã em vez de ficar preso no meio */
+  width: 95% !important; 
+  max-width: 1800px !important; 
+  margin: 0 auto !important;
+
+  /* AUMENTO DE ESPAÇAMENTO VERTICAL: Distância entre as grandes secções */
+  gap: 25px !important; 
+  
+  /* Espaço extra no topo para não colar na Navbar */
+  padding: 80px 0 !important; 
+}
+
+/* 2. HERO SECTION - Título e Pesquisa */
+.hero-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Espaçamento entre o título e a barra de pesquisa */
+  gap: 40px; 
+}
+
+
+
+/* 3. SEÇÃO DE FAVORITOS - Largura Total */
+.favorites-section {
+  margin-top: 64px;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Distância entre o título "As Minhas Cidades" e os cartões */
+}
+
+.favorites-grid {
+  display: grid;
+  /* Cartões maiores para preencher o espaço lateral */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+  gap: 30px;
+  width: 100%;
+}
+
+/* 4. REMOVER CONFLITOS */
+/* Forçamos a remoção de margens que possam estar a encolher o layout */
+.content-area  {
+  margin-left: 0;
+  margin-right: 78px;
+  display: flex;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 80rem; 
+  width: 95%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.favorite-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.favorite-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  border-color: var(--primary-blue);
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  
+  /* UI Principle: Aumento do comprimento para domínio visual */
+  max-width: 900px; 
+  
+  background-color: white;
+  
+  /* Padding reduzido para um aspeto mais "slim" e moderno */
+  padding: 6px 8px 6px 25px; 
+  
+  border-radius: 100px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+/* INPUT (A CAIXA DE TEXTO) */
+.search-input {
+  flex: 1; /* Ocupa o espaço e empurra o botão */
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.1rem;
+  color: #1e293b;
+  height: 48px;
+}
+
+/* BOTÃO DE PESQUISAR (DIMINUÍDO E PROPORCIONAL) */
+.search-button {
+  height: 48px; /* Mesma altura do input para simetria */
+  
+  /* UI Principle: Padding reduzido (de 60px para 35px) para não ser agressivo */
+  padding: 0 35px; 
+  
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-weight: 600; /* Peso visual médio para elegância */
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px); /* Feedback suave ao passar o rato */
+}
