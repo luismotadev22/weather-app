@@ -192,3 +192,14 @@
   background-color: #0056b3;
   transform: translateY(-1px); /* Feedback suave ao passar o rato */
 }
+
+.seagull-container {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  width: 250px;
+  height: auto;
+  /* Movimento fluido e não linear */
+  animation: flyOrganic 20s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+

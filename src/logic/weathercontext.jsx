@@ -1,77 +1,66 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-// 1. Criação do Contexto
+// 1️⃣ Criação do Contexto
 const WeatherContext = createContext();
 
-// 2. Chaves para o Local Storage (para persistência)
+// 2️⃣ Chaves para o Local Storage
 const UNITS_STORAGE_KEY = 'weather_units';
 const FAVORITES_STORAGE_KEY = 'weather_favorites';
 
-// 3. O Componente Provider que irá envolver a sua aplicação
+// 3️⃣ Provider
 export function WeatherProvider({ children }) {
-    
-    // --- ESTADO INICIAL (Lê do localStorage) ---
-    
+
+    // --- Estado para unidades
     const [units, setUnits] = useState(() => {
-        // Tenta carregar a unidade preferida ou usa 'metric' (Celsius) como padrão
-        return localStorage.getItem(UNITS_STORAGE_KEY) || 'metric'; 
+        return localStorage.getItem(UNITS_STORAGE_KEY) || 'metric';
     });
 
-    // 3.2. Estado para a lista de Favoritos
+    // --- Estado para favoritos (como objetos {id, name})
     const [favorites, setFavorites] = useState(() => {
-        const storedFavorites = localStorage.getItem(FAVORITES_STORAGE_KEY);
-        // Tenta fazer o parse do JSON guardado
+        const stored = localStorage.getItem(FAVORITES_STORAGE_KEY);
         try {
-            return storedFavorites ? JSON.parse(storedFavorites) : [];
+            return stored ? JSON.parse(stored) : [];
         } catch (e) {
-            console.error("Erro a carregar favoritos do localStorage:", e);
+            console.error("Erro ao carregar favoritos do localStorage:", e);
             return [];
         }
     });
 
-    // --- EFEITOS (Persistência no localStorage) ---
-
-    // Persistir as UNIDADES sempre que o estado 'units' mudar
+    // --- Persistência
     useEffect(() => {
         localStorage.setItem(UNITS_STORAGE_KEY, units);
     }, [units]);
 
-    // Persistir os FAVORITOS sempre que o estado 'favorites' mudar
     useEffect(() => {
         localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
     }, [favorites]);
 
-    // --- FUNÇÕES DE MANIPULAÇÃO ---
-
-    // Função para alternar entre 'metric' (C) e 'imperial' (F)
+    // --- Funções ---
     const toggleUnits = useCallback(() => {
-        setUnits(prevUnits => (prevUnits === 'metric' ? 'imperial' : 'metric'));
+        setUnits(prev => (prev === 'metric' ? 'imperial' : 'metric'));
     }, []);
-    
-    // Verifica se uma cidade é favorita (case-insensitive)
+
+    // Verifica se a cidade já está nos favoritos pelo id
     const isFavorite = useCallback((city) => {
-        const normalizedCity = city.trim().toLowerCase();
-        return favorites.some(fav => fav.toLowerCase() === normalizedCity);
+        if (!city || !city.id) return false;
+        return favorites.some(fav => fav.id === city.id);
     }, [favorites]);
 
-    // Adiciona uma cidade aos favoritos
+    // Adiciona cidade aos favoritos
     const addFavorite = useCallback((city) => {
-        const normalizedCity = city.trim();
-        if (normalizedCity && !isFavorite(normalizedCity)) {
-            setFavorites(prevFavorites => [...prevFavorites, normalizedCity]);
+        if (!city || !city.id) return;
+        if (!isFavorite(city)) {
+            setFavorites(prev => [...prev, { id: city.id, name: city.name }]);
         }
     }, [isFavorite]);
 
-    // Remove uma cidade dos favoritos
+    // Remove cidade dos favoritos pelo id
     const removeFavorite = useCallback((city) => {
-        const normalizedCity = city.trim().toLowerCase();
-        setFavorites(prevFavorites => 
-            prevFavorites.filter(fav => fav.toLowerCase() !== normalizedCity)
-        );
+        if (!city || !city.id) return;
+        setFavorites(prev => prev.filter(fav => fav.id !== city.id));
     }, []);
 
-    // --- VALOR DO CONTEXTO (o que é disponibilizado aos componentes) ---
-
+    // --- Context value
     const contextValue = {
         units,
         toggleUnits,
@@ -88,12 +77,10 @@ export function WeatherProvider({ children }) {
     );
 }
 
-// 4. Hook Customizado para usar o Contexto
-// Componentes importam este hook para acederem a 'units', 'favorites', etc.
+// 4️⃣ Hook customizado
 export function useWeatherContext() {
     const context = useContext(WeatherContext);
-    if (context === undefined) {
-        // Garante que o desenvolvedor use o hook dentro do Provider
+    if (!context) {
         throw new Error('useWeatherContext deve ser usado dentro de um WeatherProvider');
     }
     return context;

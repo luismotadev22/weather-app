@@ -1,74 +1,71 @@
-import React from 'react';
-import { FaWind, FaTint, FaThermometerHalf, FaSun, FaCloud, FaBolt, FaSnowflake } from 'react-icons/fa';
-// Importar o WeatherIcon, se já o tiver criado.
+import React from "react";
+import { FaThermometerHalf, FaTint, FaWind } from "react-icons/fa";
+import { weatherTypeMap } from "../logic/weatherTypeMap";
 
-// O componente recebe os dados já limpos e formatados do CityDetailPage
-function CurrentWeatherCard({ data }) {
-    if (!data) return null;
+function CurrentWeatherCard({ data, unit = "°C" }) {
+  if (!data) return null;
 
-    const { 
-        // Desestruturação dos dados recebidos
-        temp, 
-        feels_like, 
-        description, 
-        humidity, 
-        wind_speed, 
-        unitSymbol 
-    } = data;
+  const {
+    tempMin,
+    tempMax,
+    rainProbability,
+    windSpeedClass,
+    weatherTypeId,
+  } = data;
 
-    // Função simples (placeholder) para mapear a descrição para um ícone
-    const getWeatherIcon = (desc) => {
-        // Lógica muito simples (será refinada mais tarde)
-        if (desc.toLowerCase().includes('chuva')) return <FaTint size={40} />;
-        if (desc.toLowerCase().includes('sol') || desc.toLowerCase().includes('clear')) return <FaSun size={40} />;
-        if (desc.toLowerCase().includes('nuvens') || desc.toLowerCase().includes('clouds')) return <FaCloud size={40} />;
-        if (desc.toLowerCase().includes('trovoada')) return <FaBolt size={40} />;
-        if (desc.toLowerCase().includes('neve')) return <FaSnowflake size={40} />;
-        return <FaThermometerHalf size={40} />;
-    };
+  // Obtém ícone, label e cor a partir do weatherTypeId
+  const weather = weatherTypeMap[weatherTypeId] || {
+    label: "Desconhecido",
+    icon: "❔",
+    color: "#B0BEC5",
+  };
 
-    return (
-        <section className="weather-card">
-            <header className="card-header">
-                {getWeatherIcon(description)}
-                {/* Requisito: Mostrar Temperatura Atual */}
-                <h2 className="current-temp">
-                    {temp}{unitSymbol}
-                </h2>
-                <p className="description">{description}</p>
-            </header>
+  return (
+    <section
+      className="weather-card"
+      style={{
+        border: `2px solid ${weather.color}`,
+        borderRadius: "12px",
+        padding: "20px",
+        maxWidth: "400px",
+        margin: "20px auto",
+        backgroundColor: "#f5f5f5",
+      }}
+    >
+      <header
+        className="card-header"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <span style={{ fontSize: "3rem" }}>{weather.icon}</span>
+        <h2 style={{ margin: 0 }}>{weather.label}</h2>
+        <p>
+          Temp Máx/Min: {tempMax}{unit} / {tempMin}{unit}
+        </p>
+        <p>Probabilidade de Chuva: {rainProbability}%</p>
+        <p>Velocidade do Vento: {windSpeedClass}</p>
+      </header>
 
-            <div className="card-details">
-                {/* Requisito: Mostrar Sensação Térmica */}
-                <div className="detail-item">
-                    <FaThermometerHalf />
-                    <span>Sensação Térmica:</span>
-                    <strong>{feels_like}{unitSymbol}</strong>
-                </div>
-                
-                {/* Requisito: Mostrar Humidade */}
-                <div className="detail-item">
-                    <FaTint />
-                    <span>Humidade:</span>
-                    <strong>{humidity}%</strong>
-                </div>
-                
-                {/* Requisito: Mostrar Velocidade do Vento */}
-                <div className="detail-item">
-                    <FaWind />
-                    <span>Vento:</span>
-                    {/* Nota: O OpenWeatherMap API devolve m/s por defeito no modo 'metric' */}
-                    <strong>{wind_speed} m/s</strong> 
-                </div>
-
-                {/* Mostrar Max/Min do dia */}
-                <div className="detail-item">
-                    <span>Máx/Mín:</span>
-                    <strong>{data.temp_max}/{data.temp_min}{unitSymbol}</strong>
-                </div>
-            </div>
-        </section>
-    );
+      <div
+        className="card-details"
+        style={{ display: "flex", justifyContent: "space-around", marginTop: "15px" }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          <FaThermometerHalf /> <span>Máx/Min</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          <FaTint /> <span>Chuva</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          <FaWind /> <span>Vento</span>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default CurrentWeatherCard;

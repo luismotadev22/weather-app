@@ -1,0 +1,23 @@
+{
+  "owner": "IPMA",
+  "country": "PT",
+  "data": [
+    { "globalIdLocal": 1010500, "local": "Aveiro" },
+    { "globalIdLocal": 1020500, "local": "Beja" },
+    { "globalIdLocal": 1030300, "local": "Braga" },
+    { "globalIdLocal": 1040200, "local": "Bragança" },
+    { "globalIdLocal": 1050200, "local": "Castelo Branco" },
+    { "globalIdLocal": 1060300, "local": "Coimbra" },
+    { "globalIdLocal": 1070500, "local": "Évora" },
+    { "globalIdLocal": 1080100, "local": "Lisboa" },
+    { "globalIdLocal": 1090300, "local": "Portalegre" },
+    { "globalIdLocal": 1100900, "local": "Porto" },
+    { "globalIdLocal": 1110600, "local": "Santarém" },
+    { "globalIdLocal": 1121400, "local": "Setúbal" },
+    { "globalIdLocal": 1131200, "local": "Viana do Castelo" },
+    { "globalIdLocal": 1141600, "local": "Vila Real" },
+    { "globalIdLocal": 1151200, "local": "Viseu" },
+    { "globalIdLocal": 2310300, "local": "Funchal" },
+    { "globalIdLocal": 2410100, "local": "Ponta Delgada" }
+  ]
+}
