@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchCurrentWeather } from "../logic/api_weather.jsx";
 
-
 function SearchBar() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +17,7 @@ function SearchBar() {
       setLoading(true);
       const data = await fetchCurrentWeather(query);
 
-      // Navega para página da cidade usando ID e passando state
+      // Navega para a página de detalhes da cidade
       navigate(`/cidade/${data.cityId}`, { state: { cityName: data.city } });
       setQuery("");
     } catch (err) {
