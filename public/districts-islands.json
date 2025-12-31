@@ -1,6 +1,4 @@
 {
-  "owner": "IPMA",
-  "country": "PT",
   "data": [
     { "globalIdLocal": 1010500, "local": "Aveiro" },
     { "globalIdLocal": 1020500, "local": "Beja" },
@@ -9,15 +7,21 @@
     { "globalIdLocal": 1050200, "local": "Castelo Branco" },
     { "globalIdLocal": 1060300, "local": "Coimbra" },
     { "globalIdLocal": 1070500, "local": "Évora" },
-    { "globalIdLocal": 1080100, "local": "Lisboa" },
-    { "globalIdLocal": 1090300, "local": "Portalegre" },
-    { "globalIdLocal": 1100900, "local": "Porto" },
-    { "globalIdLocal": 1110600, "local": "Santarém" },
-    { "globalIdLocal": 1121400, "local": "Setúbal" },
-    { "globalIdLocal": 1131200, "local": "Viana do Castelo" },
-    { "globalIdLocal": 1141600, "local": "Vila Real" },
-    { "globalIdLocal": 1151200, "local": "Viseu" },
+    { "globalIdLocal": 1080500, "local": "Faro" },
+    { "globalIdLocal": 1090700, "local": "Guarda" },
+    { "globalIdLocal": 1100900, "local": "Leiria" },
+    { "globalIdLocal": 1110600, "local": "Lisboa" },
+    { "globalIdLocal": 1121400, "local": "Portalegre" },
+    { "globalIdLocal": 1131200, "local": "Porto" },
+    { "globalIdLocal": 1141600, "local": "Santarém" },
+    { "globalIdLocal": 1151200, "local": "Setúbal" },
+    { "globalIdLocal": 1160900, "local": "Viana do Castelo" },
+    { "globalIdLocal": 1171400, "local": "Vila Real" },
+    { "globalIdLocal": 1182300, "local": "Viseu" },
     { "globalIdLocal": 2310300, "local": "Funchal" },
-    { "globalIdLocal": 2410100, "local": "Ponta Delgada" }
+    { "globalIdLocal": 2320100, "local": "Porto Santo" },
+    { "globalIdLocal": 3420300, "local": "Ponta Delgada" },
+    { "globalIdLocal": 3430100, "local": "Angra do Heroísmo" },
+    { "globalIdLocal": 3470100, "local": "Horta" }
   ]
 }
