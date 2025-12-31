@@ -15,7 +15,7 @@ const FavoriteButton = ({ city }) => {
     <button
       onClick={() => (favorite ? removeFavorite(city) : addFavorite(city))}
       className="favorite-btn"
-      style={{ fontSize: "1.5rem", cursor: "pointer", background: "none", border: "none" }}
+      style={{ fontSize: "2.0rem", cursor: "pointer", background: "none", border: "none" }}
     >
       {favorite ? "⭐" : "☆"}
     </button>

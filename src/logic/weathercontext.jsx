@@ -1,87 +1,51 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-// 1️⃣ Criação do Contexto
 const WeatherContext = createContext();
 
-// 2️⃣ Chaves para o Local Storage
-const UNITS_STORAGE_KEY = 'weather_units';
-const FAVORITES_STORAGE_KEY = 'weather_favorites';
+export const WeatherProvider = ({ children }) => {
+  // Inicializa os favoritos a partir do localStorage ou array vazio
+  const [favorites, setFavorites] = useState(() => {
+    const saved = localStorage.getItem("weather_favorites");
+    return saved ? JSON.parse(saved) : [];
+  });
 
-// 3️⃣ Provider
-export function WeatherProvider({ children }) {
+  // Grava no localStorage sempre que a lista de favoritos mudar
+  useEffect(() => {
+    localStorage.setItem("weather_favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
-    // --- Estado para unidades
-    const [units, setUnits] = useState(() => {
-        return localStorage.getItem(UNITS_STORAGE_KEY) || 'metric';
+  // Função para adicionar (evita duplicados)
+  const addFavorite = (cityId) => {
+    if (!cityId) return;
+    setFavorites((prev) => {
+      if (prev.includes(cityId)) return prev;
+      return [...prev, cityId];
     });
+  };
 
-    // --- Estado para favoritos (como objetos {id, name})
-    const [favorites, setFavorites] = useState(() => {
-        const stored = localStorage.getItem(FAVORITES_STORAGE_KEY);
-        try {
-            return stored ? JSON.parse(stored) : [];
-        } catch (e) {
-            console.error("Erro ao carregar favoritos do localStorage:", e);
-            return [];
-        }
-    });
+  // Função para remover
+  const removeFavorite = (cityId) => {
+    setFavorites((prev) => prev.filter((id) => id !== cityId));
+  };
 
-    // --- Persistência
-    useEffect(() => {
-        localStorage.setItem(UNITS_STORAGE_KEY, units);
-    }, [units]);
+  // Função para verificar se é favorito (esta é a que o teu botão usa)
+  const isFavorite = (cityId) => {
+    return favorites.includes(cityId);
+  };
 
-    useEffect(() => {
-        localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
-    }, [favorites]);
+  return (
+    <WeatherContext.Provider 
+      value={{ favorites, addFavorite, removeFavorite, isFavorite }}
+    >
+      {children}
+    </WeatherContext.Provider>
+  );
+};
 
-    // --- Funções ---
-    const toggleUnits = useCallback(() => {
-        setUnits(prev => (prev === 'metric' ? 'imperial' : 'metric'));
-    }, []);
-
-    // Verifica se a cidade já está nos favoritos pelo id
-    const isFavorite = useCallback((city) => {
-        if (!city || !city.id) return false;
-        return favorites.some(fav => fav.id === city.id);
-    }, [favorites]);
-
-    // Adiciona cidade aos favoritos
-    const addFavorite = useCallback((city) => {
-        if (!city || !city.id) return;
-        if (!isFavorite(city)) {
-            setFavorites(prev => [...prev, { id: city.id, name: city.name }]);
-        }
-    }, [isFavorite]);
-
-    // Remove cidade dos favoritos pelo id
-    const removeFavorite = useCallback((city) => {
-        if (!city || !city.id) return;
-        setFavorites(prev => prev.filter(fav => fav.id !== city.id));
-    }, []);
-
-    // --- Context value
-    const contextValue = {
-        units,
-        toggleUnits,
-        favorites,
-        isFavorite,
-        addFavorite,
-        removeFavorite,
-    };
-
-    return (
-        <WeatherContext.Provider value={contextValue}>
-            {children}
-        </WeatherContext.Provider>
-    );
-}
-
-// 4️⃣ Hook customizado
-export function useWeatherContext() {
-    const context = useContext(WeatherContext);
-    if (!context) {
-        throw new Error('useWeatherContext deve ser usado dentro de um WeatherProvider');
-    }
-    return context;
-}
+export const useWeatherContext = () => {
+  const context = useContext(WeatherContext);
+  if (!context) {
+    throw new Error("useWeatherContext deve ser usado dentro de um WeatherProvider");
+  }
+  return context;
+};
