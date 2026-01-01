@@ -104,7 +104,7 @@
   display: grid;
   /* Cartões maiores para preencher o espaço lateral */
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-  gap: 30px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -331,6 +331,62 @@
 }
 
 .detail-header h1 {
-  margin-top: -58px; /* Remove a margem nativa do H1 */
+  margin-top: -10px; /* Remove a margem nativa do H1 */
   font-size: 2.5rem;
+}
+
+.city-detail-container {
+  padding: -80px;
+  max-width: 600px; /* Limita a largura para não ficar muito esticado em ecrãs grandes */
+  margin: 0 auto;   /* Centra o contentor na página */
+}
+
+/* O Link de voltar para trás */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  transition: color 0.2s;
+  margin-top: 0;
+  margin-bottom: -80px;
+  z-index: 40;
+}
+
+.back-link:hover {
+  color: #007bff; /* Azul ao passar o rato */
+}
+
+/* O Cabeçalho onde está o Título e a Estrela */
+.detail-header {
+  display: flex;
+  justify-content: space-between; /* IMPORTANTE: Empurra o título para a esq e a estrela para a dir */
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee; /* Linha subtil de separação */
+  padding-bottom: 10px;
+}
+
+.detail-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Estilo do botão da estrela (removendo o estilo padrão de botão) */
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1); /* Aumenta ligeiramente ao passar o rato */
 }

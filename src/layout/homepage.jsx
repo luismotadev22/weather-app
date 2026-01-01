@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useWeatherContext } from "../logic/weathercontext.jsx";
-import SearchBar from "./searchbar.jsx";
+import SearchBar from "../layout/SearchBar";
+import { useWeatherContext } from "../logic/weathercontext";
+
+
 
 function HomePage() {
   const { favorites } = useWeatherContext();
@@ -16,31 +18,30 @@ function HomePage() {
   return (
     <main className="home-page">
       <section className="hero-section">
-        <h1>Bem-vindo ao WeatherApp</h1>
-        <p>Consulte a previsão do tempo para qualquer cidade.</p>
+        <h1>Bem vindo ao WheatherApp</h1>
+        <p>Consulte a previsão para as suas cidades favoritas.</p>
         <SearchBar />
       </section>
 
       <section className="favorites-section">
-        <h2>⭐ As Minhas Cidades</h2>
+        <h2>⭐ Cidades Favoritas</h2>
 
         {favorites.length > 0 ? (
           <div className="favorites-grid">
             {favorites.map((city) => (
-              <div
+              <button
                 key={city.id}
                 onClick={() => goToCity(city.id, city.name)}
-                className="favorite-card"
+                className="favorite-card-button"
               >
-                <h3>{city.name}</h3>
-                <span className="card-link">Ver previsão →</span>
-              </div>
+                {/* O city.name agora funciona porque o contexto guardou o objeto */}
+                <span className="city-name">{city.name}</span>
+                <span className="view-label">Ver Detalhes</span>
+              </button>
             ))}
           </div>
         ) : (
-          <p className="no-favorites">
-            Ainda não adicionou cidades aos favoritos.
-          </p>
+          <p className="no-favorites">Ainda não guardou nenhuma cidade.</p>
         )}
       </section>
     </main>

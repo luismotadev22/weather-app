@@ -39,31 +39,41 @@ export const getCityId = async (cityName) => {
 /**
  * Obter previsão meteorológica ligando ao Backend Node
  */
-export const fetchCurrentWeather = async (cityName) => {
+export const fetchCurrentWeather = async (input) => {
   try {
-    // 1. Obter o ID
-    const { id, name } = await getCityId(cityName);
-    
-    // 2. Chamar o Backend
-    const res = await fetch(`${BACKEND_URL}/${id}`);
+    const resList = await fetch(DISTRICTS_URL);
+    if (!resList.ok) throw new Error("Erro ao carregar lista de cidades.");
+    const districtsData = await resList.json();
 
-    // 3. Se o status não for 200 (OK), tratar erro
-    if (!res.ok) {
-      const errorText = await res.text(); // Usamos text() caso o servidor não envie JSON no erro
-      console.error(`Erro do Servidor (${res.status}):`, errorText);
-      throw new Error(`Erro ${res.status}: Problema ao ligar ao IPMA.`);
+    let city;
+    const isId = !isNaN(input) && !isNaN(parseFloat(input));
+
+    if (isId) {
+      // Se for um ID, procura pelo globalIdLocal
+      city = districtsData.data.find(item => String(item.globalIdLocal) === String(input));
+    } else {
+      // Se for texto, usa a tua lógica de normalização
+      const normalizedInput = normalizeText(input);
+      city = districtsData.data.find(item => normalizeText(item.local) === normalizedInput);
     }
 
-    const data = await res.json();
+    if (!city) throw new Error("Cidade não encontrada. Tenta novamente.");
 
-    // 4. Validar se o IPMA enviou a lista de previsão
+    const id = city.globalIdLocal;
+    const name = city.local;
+
+    // Chamar o teu Backend Node
+    const resWeather = await fetch(`${BACKEND_URL}/${id}`);
+    if (!resWeather.ok) throw new Error("Problema ao ligar ao servidor de meteorologia.");
+
+    const data = await resWeather.json();
+
     if (!data?.data || data.data.length === 0) {
-      throw new Error("Previsão indisponível para esta localização.");
+      throw new Error("Previsão indisponível.");
     }
 
     const today = data.data[0];
 
-    // 5. Retornar apenas o necessário
     return {
       city: name,
       cityId: id,
@@ -77,6 +87,6 @@ export const fetchCurrentWeather = async (cityName) => {
 
   } catch (err) {
     console.error("Erro em fetchCurrentWeather:", err.message);
-    throw err; // Lança para o componente SearchBar tratar
+    throw err;
   }
 };
