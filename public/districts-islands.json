@@ -22,6 +22,8 @@
     { "globalIdLocal": 2320100, "local": "Porto Santo" },
     { "globalIdLocal": 3420300, "local": "Ponta Delgada" },
     { "globalIdLocal": 3430100, "local": "Angra do Heroísmo" },
-    { "globalIdLocal": 3470100, "local": "Horta" }
+    { "globalIdLocal": 3470100, "local": "Horta" },
+    { "globalIdLocal": 1030300, "local": "Guimarães" },
+    { "globalIdLocal": 1030300, "local": "Barcelos" }
   ]
 }

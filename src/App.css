@@ -1,22 +1,51 @@
 :root {
-  --primary-blue: #0284c7;
+  --bg-app: #f0f9ff;
+  --bg-card: #ffffff;
   --text-main: #1e293b;
-  --text-soft: #64748b;
-  --bg-light: #f8fafc;
+  --border-color: #e2e8f0;
+  --accent: #3b82f6;
+
+  /* Variáveis exclusivas para o Header */
+  --header-bg: #ffffff;      /* Branco no modo claro */
+  --header-text: #1e293b;    /* Escuro no modo claro */
+  --header-border: #e2e8f0;
 }
 
-/* 2. HEADER / NAVBAR (Mais fina e elegante) */
+
+header.main-header, 
 .main-header {
-  width: 100%;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
+  width: 100% !important;
+  background-color: var(--header-bg) !important; 
+  border-bottom: 1px solid var(--header-border) !important;
+  
   padding: 18px 60px;
   position: sticky;
-  font-weight: 800 !important;
   top: 0;
   z-index: 1000;
+  font-weight: 800 !important;
+  backdrop-filter: blur(10px);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* 3. FORÇAR A COR DOS DETALHES DENTRO DO HEADER */
+/* Este seletor específico vence o !important global de "h1, p, span" */
+.main-header h1, 
+.main-header p, 
+.main-header span, 
+.main-header a,
+.main-header .brand-text,
+.main-header .nav-link {
+  color: var(--header-text) !important;
+}
+
+/* Ajuste para o link ativo na Navbar */
+.nav-link.active {
+  color: var(--accent) !important;
+  border-bottom: 2px solid var(--accent);
+}
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -100,13 +129,6 @@
   gap: 40px; /* Distância entre o título "As Minhas Cidades" e os cartões */
 }
 
-.favorites-grid {
-  display: grid;
-  /* Cartões maiores para preencher o espaço lateral */
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-  gap: 10px;
-  width: 100%;
-}
 
 .favorite-btn {
   background: none;
@@ -389,4 +411,188 @@
 
 .favorite-btn:hover {
   transform: scale(1.1); /* Aumenta ligeiramente ao passar o rato */
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+/* O Card/Botão individual */
+.favorite-card-button {
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(10px); /* Efeito de vidro */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-main) !important;
+  all: unset; /* Remove estilos padrão de botão */
+  cursor: pointer;
+  border-radius: 16px;
+  padding: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito de elevação ao passar o rato (UX Feedback) */
+.favorite-card-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6; /* Destaque azul suave */
+}
+
+/* Feedback visual ao clicar */
+.favorite-card-button:active {
+  transform: translateY(-1px);
+  background-color: #f8fafc;
+}
+
+/* Estilo do Nome da Cidade */
+.city-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -0.025em;
+}
+
+/* Label "Ver Detalhes" */
+.view-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #3b82f6;
+  background: #eff6ff;
+  padding: 3px 3px;
+  border-radius: 9999px; /* Formato de pílula */
+  transition: background 0.2s;
+}
+
+.favorite-card-button:hover .view-label {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+/* Estilo para quando não há favoritos */
+.no-favorites {
+  text-align: center;
+  color: #64748b;
+  padding: 3rem;
+  background: #f1f5f9;
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
+}
+
+:root {
+  --bg-app: #f0f9ff;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --border-color: #e2e8f0;
+  --accent: #3b82f6;
+}
+
+/* 2. Variáveis para Modo Escuro */
+body.dark {
+  --bg-app: #0f172a !important; /* Azul escuro profundo */
+  --bg-card: #1e293b !important; /* Azul ligeiramente mais claro para os cards */
+  --text-main: #f8fafc !important; /* Branco gelo para o texto ser lido */
+  --border-color: #334155 !important;
+  --header-bg: #0f172a !important;
+  --header-text: #ffffff !important;
+}
+
+/* 3. RESET DO BODY (O que impede a cor de mudar) */
+body {
+  background-color: var(--bg-app) !important;
+  color: var(--text-main) !important;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease;
+}
+
+/* 4. Correção do Layout (Resolve o encavalitamento da imagem re.png) */
+.settings-page-container {
+  display: flex;
+  flex-direction: column; /* Força os elementos a ficarem um abaixo do outro */
+  gap: 15px;
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* Afastar o botão Voltar do Título */
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px; 
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+/* Estilo do Card de Definições */
+.setting-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 25px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+/* Garante que todos os títulos mudam de cor no modo escuro */
+h1, h2, h3, h4, span, p {
+  color: var(--text-main) !important;
+  margin-top: 0;
+}
+
+.brand-text {
+  color: var(--text-main) !important;
+  font-weight: 800;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+/* Se o nome "WeatherApp" for um span simples dentro da navbar: */
+.navbar span {
+    color: var(--text-main);
+}
+
+.view-label {
+  /* Cor do fundo da "pílula" */
+  background-color: var(--accent) !important; 
+  
+  /* COR DO TEXTO - Aqui está o segredo */
+  color: var(--text-main) !important; 
+  
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* No Modo Escuro, podemos dar ainda mais brilho ao botão */
+body.dark .view-label {
+  background-color: #38bdf8 !important; /* Azul mais vivo */
+  color: #0f172a !important; /* Texto escuro para contrastar com o fundo claro do botão */
+}
+
+body.dark .hero-section h1 {
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+body.dark .hero-section p {
+  color: #cbd5e1 !important;
 }

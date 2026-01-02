@@ -1,10 +1,21 @@
 :root {
-  /* Paleta "Céu de Verão" */
-  --sky-gradient: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
-  --primary-blue: #0284c7;    /* Azul oceano para ações */
-  --text-main: #0c4a6e;      /* Azul muito escuro para contraste máximo */
+  /* MODO CLARO - "Céu de Verão" */
+  --bg-gradient: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+  --text-main: #0c4a6e;      /* Azul escuro */
   --text-soft: #334155;
-  --white-glass: rgba(255, 255, 255, 0.7); /* Efeito de vidro para cartões */
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --nav-text: #0284c7;
+}
+
+
+body.dark {
+  /* MODO ESCURO - "Céu Noturno" */
+  --bg-gradient: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  --text-main: #f8fafc;      /* Branco gelo para visibilidade */
+  --text-soft: #cbd5e1;      /* Cinza claro */
+  --card-bg: rgba(30, 41, 59, 0.8); /* Fundo escuro para os cards */
+  --nav-text: #38bdf8; 
+  --nav-logo: #38bdf8;      /* Azul claro brilhante */
 }
 
 * {
@@ -15,8 +26,28 @@
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: var(--sky-gradient);
-  background-attachment: fixed; /* O gradiente não quebra ao fazer scroll */
+  /* Importante: usar background-image para o gradiente mudar */
+  background-image: var(--bg-gradient) !important;
+  background-attachment: fixed;
   color: var(--text-main);
   min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+/* FORÇAR VISIBILIDADE DOS TEXTOS NO MODO ESCURO */
+h1, h2, h3, h4, p, span, .city-name {
+  color: var(--text-main) !important;
+}
+
+/* AJUSTE PARA A NAVBAR (Imagem ded.png) */
+.nav-link, .navbar a, .navbar li {
+  color: var(--nav-text) !important;
+}
+
+/* AJUSTE PARA OS CARDS (Imagens assim 1.png / ded.png) */
+.favorite-card-button {
+  background: var(--card-bg) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-main) !important;
+  backdrop-filter: blur(10px);
 }
