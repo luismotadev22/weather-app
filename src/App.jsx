@@ -5,6 +5,8 @@ import Header from './layout/header.jsx';
 import HomePage from './layout/homepage.jsx';
 import CityDetailPage from './layout/citydetailpage.jsx';
 import SettingsPage from "./layout/settingspage.jsx";
+import Sobre from './layout/sobre.jsx';
+import Contactos from './layout/contactos.jsx';
 
 function App() {
   return (
@@ -14,8 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/cidade/:cityId" element={<CityDetailPage />} />
-          <Route path="/sobre" element={<main style={{ padding: '20px' }}><h1>ℹ️ Sobre (Brevemente)</h1></main>} />
-          <Route path="/contactos" element={<main style={{ padding: '20px' }}><h1>👤 Contactos (Brevemente)</h1></main>} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/contactos" element={<Contactos />} />
           <Route path="*" element={<main style={{ padding: '20px' }}><h1>404: Página Não Encontrada</h1></main>} />
           <Route path="/definicoes" element={<SettingsPage />} />
         </Routes>

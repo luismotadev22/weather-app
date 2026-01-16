@@ -32,7 +32,6 @@ export const getCityId = async (cityName) => {
     return { id: city.globalIdLocal, name: city.local };
   } catch (err) {
     console.error("Erro em getCityId:", err.message);
-    throw err;
   }
 };
 
